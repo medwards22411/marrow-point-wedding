@@ -209,7 +209,7 @@ export class OnDeviceAI {
       }
     }
     if (!reply) {
-      let text = OnDeviceAI.tidy(await OnDeviceAI.step(base, `${transcript}\n\nWrite your reply to the visitor now: say what the tool results show was done or found, in two or three plain sentences. Do not mention tool names, and give only links that a tool result contains.`, null, 1500, signal));
+      let text = OnDeviceAI.tidy(await OnDeviceAI.step(base, `${transcript}\n\nWrite your reply to the visitor now: say what the tool results show was done or found, in two or three plain sentences. Never mention tools or "the tool": name the site or partner instead. Give only links that a tool result contains, written out in full.`, null, 1500, signal));
       text = OnDeviceAI.keepKnownLinks(text, transcript);
       if (!siteTools) {
         // Answering for another site with no tool results: any link would be made up.
@@ -242,7 +242,7 @@ export class OnDeviceAI {
     const schema = fn.parameters && fn.parameters.type === "object"
       ? OnDeviceAI.capped(OnDeviceAI.bare(fn.parameters))
       : { type: "object", properties: {} };
-    const ask = `${transcript}\n\nStep 2: you call ${fn.name}. Give its arguments as JSON, using only what the visitor and the tool results said.`;
+    const ask = `${transcript}\n\nStep 2: you call ${fn.name}. Give its arguments as JSON, using only what the visitor and the tool results said. Leave out every optional field the visitor did not mention.`;
     let raw = "";
     try {
       raw = await OnDeviceAI.step(base, ask, schema, 2500, signal);
@@ -290,12 +290,17 @@ export class OnDeviceAI {
     const known = (url) => transcript.includes(url.replace(/[.,;:!?)]+$/, ""));
     let cleaned = false;
     let value = String(text)
+      // "[](url)" has no words to show: keep the address itself.
+      .replace(/\[\s*\]\((https?:\/\/[^)\s]+)\)/g, "$1")
       .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (match, words, url) => (known(url) ? match : words))
       .replace(/\s*(?:at |visit |see )?(https?:\/\/[^\s)]+)/gi, (match, url) => {
         if (known(url)) return match;
         cleaned = true;
         return "";
       })
+      // Empty brackets left behind, such as "[)" or "()".
+      .replace(/\s*[[(]\s*[\])]/g, "")
+      .replace(/:\s*([.!?])/g, "$1")
       .replace(/[ \t]+([.,!?])/g, "$1")
       .trim();
     // A sentence that only pointed to a removed link is left as a fragment: drop it.
