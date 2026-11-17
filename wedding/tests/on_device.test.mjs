@@ -292,6 +292,18 @@ test("the chosen tool is the one called, even when partners are listed first", a
   assert.equal(result.toolCalls[0].function.name, "website_look_up_invitation");
 });
 
+test("links no tool result contains are removed from answers", () => {
+  const transcript = 'TOOL RESULT: {"url":"https://marrow-point-guesthouse.web.app/"}';
+  assert.equal(
+    OnDeviceAI.keepKnownLinks("Dress code is garden formal. For more details, please visit https://made.up/x#info.", transcript),
+    "Dress code is garden formal.",
+  );
+  assert.equal(
+    OnDeviceAI.keepKnownLinks("Book at https://marrow-point-guesthouse.web.app/. Or [our page](https://made.up/).", transcript),
+    "Book at https://marrow-point-guesthouse.web.app/. Or our page.",
+  );
+});
+
 test("stray markup after an answer is trimmed", () => {
   assert.equal(OnDeviceAI.tidy("All set.\\n- Iris: chicken</div></body></html> />}"), "All set.\n- Iris: chicken");
   assert.equal(OnDeviceAI.tidy("  Plain answer.  "), "Plain answer.");

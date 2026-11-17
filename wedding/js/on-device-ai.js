@@ -210,6 +210,7 @@ export class OnDeviceAI {
     }
     if (!reply) {
       let text = OnDeviceAI.tidy(await OnDeviceAI.step(base, `${transcript}\n\nWrite your reply to the visitor now: say what the tool results show was done or found, in two or three plain sentences. Do not mention tool names, and give only links that a tool result contains.`, null, 1500, signal));
+      text = OnDeviceAI.keepKnownLinks(text, transcript);
       if (!siteTools) {
         // Answering for another site with no tool results: any link would be made up.
         text = text.replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/\s*\(?https?:\/\/\S+\)?/g, "");
@@ -275,6 +276,34 @@ export class OnDeviceAI {
     } finally {
       session.destroy();
     }
+  }
+
+  /**
+   * Remove links a small model made up: keep a URL only when the conversation (its tool
+   * results) contains it. A Markdown link to an unknown URL keeps its words.
+   *
+   * :param text: the answer
+   * :param transcript: the conversation the model saw
+   * :return: the answer without unknown links
+   */
+  static keepKnownLinks(text, transcript) {
+    const known = (url) => transcript.includes(url.replace(/[.,;:!?)]+$/, ""));
+    let cleaned = false;
+    let value = String(text)
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, (match, words, url) => (known(url) ? match : words))
+      .replace(/\s*(?:at |visit |see )?(https?:\/\/[^\s)]+)/gi, (match, url) => {
+        if (known(url)) return match;
+        cleaned = true;
+        return "";
+      })
+      .replace(/[ \t]+([.,!?])/g, "$1")
+      .trim();
+    // A sentence that only pointed to a removed link is left as a fragment: drop it.
+    if (cleaned && !/[.!?]$/.test(value)) {
+      const end = Math.max(value.lastIndexOf(". "), value.lastIndexOf("! "), value.lastIndexOf("? "));
+      value = end > 0 ? value.slice(0, end + 1) : value;
+    }
+    return value;
   }
 
   /**
