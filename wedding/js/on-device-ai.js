@@ -204,6 +204,11 @@ export class OnDeviceAI {
    * :return: {kind: "tool", tool, arguments}, or null when no usable call came back
    */
   static async callArguments(base, transcript, fn, signal) {
+    // A tool that takes no arguments needs no step: Chrome's model tends to fill an empty
+    // object with blank lines until the length limit.
+    if (!fn.parameters || !Object.keys(fn.parameters.properties || {}).length) {
+      return { kind: "tool", tool: fn.name, arguments: {} };
+    }
     const schema = fn.parameters && fn.parameters.type === "object"
       ? OnDeviceAI.capped(OnDeviceAI.bare(fn.parameters))
       : { type: "object", properties: {} };
@@ -276,7 +281,8 @@ export class OnDeviceAI {
       if (schema) options.responseConstraint = schema;
       for await (const piece of session.promptStreaming(text, options)) {
         output += piece;
-        if (output.length >= limit) {
+        // A long run of blank space means the model is stuck padding: stop it.
+        if (output.length >= limit || /\s{60,}$/.test(output)) {
           stop.abort();
           break;
         }

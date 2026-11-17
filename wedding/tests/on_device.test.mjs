@@ -245,6 +245,19 @@ test("running for another site (no website tools), it answers directly with no m
   assert.equal(result.content, "We have four rooms by the harbor. Book on our booking page or call 555-0147.");
 });
 
+test("a tool with no arguments is called without an arguments step", async () => {
+  ScriptedModel.reset(['{"next":"website_get_event_info"}']);
+  const client = new LlmClient({ baseUrl: OnDeviceAI.ROUTER, apiKey: OnDeviceAI.KEY });
+  const result = await client.chat({
+    model: OnDeviceAI.MODEL,
+    messages: [SYSTEM, { role: "user", content: "When is the ceremony?" }],
+    tools: [{ type: "function", function: { name: "website_get_event_info", description: "Read the page.", parameters: { type: "object", properties: {}, additionalProperties: false } } }],
+  });
+  assert.equal(result.toolCalls[0].function.name, "website_get_event_info");
+  assert.equal(result.toolCalls[0].function.arguments, "{}");
+  assert.equal(ScriptedModel.log.length, 1, "It ran an arguments step for a tool with no arguments.");
+});
+
 test("stray markup after an answer is trimmed", () => {
   assert.equal(OnDeviceAI.tidy("All set.\\n- Iris: chicken</div></body></html> />}"), "All set.\n- Iris: chicken");
   assert.equal(OnDeviceAI.tidy("  Plain answer.  "), "Plain answer.");

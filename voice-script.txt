@@ -1,0 +1,17 @@
+Read each part, then pause about 3 seconds before the next one.
+
+1. This is a wedding website for Nora and Theo. Guests come here for the schedule, travel and the RSVP. And the questions never stop.
+
+2. So the site has a concierge. It runs on the AI built into Chrome. No account, no key, and nothing a guest types leaves their computer.
+
+3. It answers from the site's own details, so it doesn't make things up.
+
+4. Guests can RSVP by just saying it. It fills in the form on the page. To send it, the guest sees exactly what goes to the couple and clicks to confirm.
+
+5. Here's the part I love. The local businesses have their own sites and their own assistants. Our concierge asks them, but only after the guest says OK on this card.
+
+6. Two websites, two assistants, working together for one guest.
+
+7. And I made it reusable. Fill in one file with your event, run one command, and you get the whole site with its concierge. Here's the same kit making a birthday party.
+
+8. It's built on the Open Agentic Web spec, with tests for every action. Thanks for watching!
