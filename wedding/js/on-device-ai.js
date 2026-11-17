@@ -203,7 +203,9 @@ export class OnDeviceAI {
         next = (OnDeviceAI.json(await OnDeviceAI.step(base, `${choose} Reply with {"next": one of ${choices.join(", ")}}.`, stepOne, 600, signal)) || {}).next;
       }
       if (names.includes(next)) {
-        reply = await OnDeviceAI.callArguments(base, transcript, OnDeviceAI.toolOf(tools[names.indexOf(next)]), signal);
+        // By name: "names" is a filtered list, so its positions differ from "tools".
+        const chosen = tools.find((tool) => OnDeviceAI.toolOf(tool).name === next);
+        reply = await OnDeviceAI.callArguments(base, transcript, OnDeviceAI.toolOf(chosen), signal);
       }
     }
     if (!reply) {

@@ -279,6 +279,19 @@ test("a partner is offered only when the visitor's message fits it", async () =>
   }
 });
 
+test("the chosen tool is the one called, even when partners are listed first", async () => {
+  // The runtime lists partner tools before website tools; the first step offers only the
+  // website ones, so the choice must be looked up by name.
+  ScriptedModel.reset(['{"next":"website_look_up_invitation"}', '{"code":"MP-4821","lastName":"Pell"}']);
+  const client = new LlmClient({ baseUrl: OnDeviceAI.ROUTER, apiKey: OnDeviceAI.KEY });
+  const result = await client.chat({
+    model: OnDeviceAI.MODEL,
+    messages: [SYSTEM, { role: "user", content: "Look up MP-4821, Pell." }],
+    tools: [TOOLS[2], TOOLS[0]],
+  });
+  assert.equal(result.toolCalls[0].function.name, "website_look_up_invitation");
+});
+
 test("stray markup after an answer is trimmed", () => {
   assert.equal(OnDeviceAI.tidy("All set.\\n- Iris: chicken</div></body></html> />}"), "All set.\n- Iris: chicken");
   assert.equal(OnDeviceAI.tidy("  Plain answer.  "), "Plain answer.");
