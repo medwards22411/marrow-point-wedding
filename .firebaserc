@@ -1,0 +1,13 @@
+{
+  "projects": { "default": "marrow-point-wedding" },
+  "targets": {
+    "marrow-point-wedding": {
+      "hosting": {
+        "wedding": ["marrow-point-wedding"],
+        "guesthouse": ["marrow-point-guesthouse"],
+        "tours": ["marrow-point-harbor-tours"],
+        "cabs": ["harborline-cabs"]
+      }
+    }
+  }
+}

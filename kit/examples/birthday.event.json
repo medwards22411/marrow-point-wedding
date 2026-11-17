@@ -1,0 +1,111 @@
+{
+  "$comment": "A second example for the kit: a family birthday with no shuttle and no partner sites. Every person, place and code here is fictional.",
+  "slug": "ruth_80th_birthday",
+  "agentName": "party_concierge",
+  "kind": "birthday party",
+  "hosts": "Ruth's family",
+  "hostsPlain": "Ruth's family",
+  "title": "Ruth turns 80",
+  "theme": {
+    "primary": "#6b3a5b"
+  },
+  "eyebrow": "Join us to celebrate",
+  "date": "2027-03-20",
+  "rsvpDeadline": "2027-03-06",
+  "place": "Linden Falls",
+  "contactEmail": "ruth80@example.com",
+  "scheduleHeading": "The day",
+  "scheduleLede": "Lunch, cake and a walk by the river. Come for all of it or just the cake.",
+  "demoNote": "Demo party: the people and codes are made up. Try invitation RB-1102 with the last name Moss.",
+  "codePrefix": "RB",
+  "events": [
+    {
+      "id": "lunch",
+      "name": "Birthday lunch",
+      "date": "2027-03-20",
+      "start": "12:30",
+      "end": "14:30",
+      "place": "The Mill House",
+      "address": "8 Weir Lane, Linden Falls",
+      "details": "A sit-down lunch. Ruth asks for no gifts: bring a story instead.",
+      "inviteOnly": false,
+      "optional": false,
+      "main": true
+    },
+    {
+      "id": "walk",
+      "name": "River walk",
+      "date": "2027-03-20",
+      "start": "15:00",
+      "end": "16:00",
+      "place": "The towpath behind the Mill House",
+      "address": "8 Weir Lane, Linden Falls",
+      "details": "An easy, flat mile. Bring boots if it has rained.",
+      "inviteOnly": false,
+      "optional": true,
+      "main": false
+    }
+  ],
+  "shuttle": null,
+  "meals": [
+    {
+      "id": "roast",
+      "name": "Roast chicken",
+      "note": "Gluten free"
+    },
+    {
+      "id": "tart",
+      "name": "Leek and cheddar tart",
+      "note": "Vegetarian"
+    }
+  ],
+  "faq": [
+    {
+      "id": "parking",
+      "question": "Where do I park?",
+      "answer": "The Mill House has a free car park with 30 spaces."
+    },
+    {
+      "id": "gifts",
+      "question": "Should I bring a gift?",
+      "answer": "No gifts, please. Ruth would love a story or a photo instead."
+    }
+  ],
+  "partners": [],
+  "invitations": [
+    {
+      "code": "RB-1102",
+      "lastName": "Moss",
+      "guests": [
+        {
+          "name": "Dina Moss",
+          "child": false
+        },
+        {
+          "name": "Leo Moss",
+          "child": false
+        }
+      ],
+      "plusOne": false,
+      "inviteOnlyEvents": []
+    },
+    {
+      "code": "RB-1187",
+      "lastName": "Farrow",
+      "guests": [
+        {
+          "name": "Pat Farrow",
+          "child": false
+        }
+      ],
+      "plusOne": true,
+      "inviteOnlyEvents": []
+    }
+  ],
+  "sampleQueries": [
+    "What time is lunch, and where do I park?",
+    "RSVP for invitation RB-1102, Moss: we're both coming, roast chicken for Dina and the tart for Leo.",
+    "Is there anything after lunch?",
+    "Can you order flowers for Ruth?"
+  ]
+}

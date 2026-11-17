@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Harborline Cabs: fixed-fare cab rides around Marrow Point and to and from Port Hollis airport. Book a ride, pay in the cab.">
+    <title>Harborline Cabs · Marrow Point</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="site.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Harborline <span>Cabs</span></a>
+        <nav aria-label="Main navigation">
+          <a href="#fares">Fares</a>
+          <a href="#booking">Book a ride</a>
+          <a href="#manage">Manage my ride</a>
+          <a href="#assistant">Ask us</a>
+        </nav>
+      </div>
+      <div class="checker" aria-hidden="true"></div>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="welcome">
+        <p class="eyebrow">3 Harbor Street · Marrow Point · open 24 hours</p>
+        <h1 id="welcome">Fixed fares around the harbor, and to the airport on time.</h1>
+        <p id="about" class="lead">Harborline Cabs drives anywhere in Marrow Point, up the valley to Linden Falls and out to
+          Port Hollis airport. Every route has a fixed fare, so you know the price before you get in.</p>
+        <p id="demo-note" class="note demo">Demo site: rides are simulated and kept in this page until you refresh it.
+          No cab is sent and nothing is charged.</p>
+      </section>
+
+      <div class="booking-layout">
+        <section id="fares" aria-labelledby="fares-heading">
+          <h2 id="fares-heading">Fares</h2>
+          <p id="fares-note">Fixed fares for a standard car, whichever way you ride. No meter and no waiting charge.</p>
+          <table class="fare-table">
+            <caption class="visually-hidden">Fixed fares by route</caption>
+            <thead>
+              <tr><th scope="col">Route</th><th scope="col">Drive</th><th scope="col">Fare</th></tr>
+            </thead>
+            <tbody id="fare-rows"></tbody>
+          </table>
+          <h3 class="subhead">Our cars</h3>
+          <ul id="car-list" class="car-list"></ul>
+          <h3 class="subhead">Good to know</h3>
+          <ul id="terms-list" class="terms-list"></ul>
+          <p id="luggage-note" class="note">Skis, a bike or more bags than the car takes? Say so in the notes, or call us,
+            and we'll send the right car.</p>
+          <noscript><p>Please turn on JavaScript to see fares and book, or call us on 555-0188.</p></noscript>
+        </section>
+
+        <section id="booking" class="panel" aria-labelledby="booking-heading">
+          <h2 id="booking-heading">Book a ride</h2>
+          <form id="ride-form" novalidate>
+            <fieldset id="ride-fields">
+              <legend>Your ride</legend>
+              <div class="field-row">
+                <div class="field">
+                  <label for="ride-from">From</label>
+                  <select id="ride-from" required aria-describedby="ride-from-error">
+                    <option value="">Choose</option>
+                  </select>
+                  <p id="ride-from-error" class="field-error" hidden></p>
+                </div>
+                <div class="field wide">
+                  <label for="ride-fromPlace">Pick-up address or place</label>
+                  <input id="ride-fromPlace" maxlength="80" autocomplete="street-address" required
+                    placeholder="14 Quay Lane" aria-describedby="ride-fromPlace-error">
+                  <p id="ride-fromPlace-error" class="field-error" hidden></p>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="ride-to">To</label>
+                  <select id="ride-to" required aria-describedby="ride-to-error">
+                    <option value="">Choose</option>
+                  </select>
+                  <p id="ride-to-error" class="field-error" hidden></p>
+                </div>
+                <div class="field wide">
+                  <label for="ride-toPlace">Drop-off address or place</label>
+                  <input id="ride-toPlace" maxlength="80" required placeholder="Departures"
+                    aria-describedby="ride-toPlace-error">
+                  <p id="ride-toPlace-error" class="field-error" hidden></p>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="ride-date">Pick-up date</label>
+                  <input id="ride-date" type="date" required aria-describedby="ride-date-error">
+                  <p id="ride-date-error" class="field-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="ride-time">Pick-up time</label>
+                  <select id="ride-time" required aria-describedby="ride-time-error">
+                    <option value="">Choose a time</option>
+                  </select>
+                  <p id="ride-time-error" class="field-error" hidden></p>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="ride-passengers">Passengers</label>
+                  <select id="ride-passengers" aria-describedby="ride-passengers-error"></select>
+                  <p id="ride-passengers-error" class="field-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="ride-childSeats">Child seats</label>
+                  <select id="ride-childSeats" aria-describedby="ride-childSeats-error"></select>
+                  <p id="ride-childSeats-error" class="field-error" hidden></p>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="ride-carType">Car</label>
+                  <select id="ride-carType" aria-describedby="ride-carType-error"></select>
+                  <p id="ride-carType-error" class="field-error" hidden></p>
+                </div>
+              </div>
+            </fieldset>
+            <div id="fare" class="fare-box" aria-live="off"></div>
+            <fieldset>
+              <legend>Your details</legend>
+              <div class="field-row">
+                <div class="field">
+                  <label for="ride-firstName">First name</label>
+                  <input id="ride-firstName" autocomplete="given-name" maxlength="60" required
+                    aria-describedby="ride-firstName-error">
+                  <p id="ride-firstName-error" class="field-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="ride-lastName">Last name</label>
+                  <input id="ride-lastName" autocomplete="family-name" maxlength="60" required
+                    aria-describedby="ride-lastName-error">
+                  <p id="ride-lastName-error" class="field-error" hidden></p>
+                </div>
+              </div>
+              <label for="ride-phone">Phone, so the driver can reach you</label>
+              <input id="ride-phone" type="tel" autocomplete="tel" maxlength="20" required
+                aria-describedby="ride-phone-error">
+              <p id="ride-phone-error" class="field-error" hidden></p>
+              <label for="ride-notes">Notes for the driver (optional)</label>
+              <textarea id="ride-notes" rows="3" maxlength="300" aria-describedby="ride-notes-error"
+                placeholder="Flight number, extra luggage, a dog, the gate code..."></textarea>
+              <p id="ride-notes-error" class="field-error" hidden></p>
+            </fieldset>
+            <p id="payment-note" class="note">Nothing to pay now. You pay the driver in the cab, by card or cash.
+              We don't take payment online.</p>
+            <button type="submit">Book this ride</button>
+          </form>
+          <div id="confirmation" class="confirmation" tabindex="-1" hidden></div>
+        </section>
+      </div>
+
+      <section id="manage" aria-labelledby="manage-heading">
+        <h2 id="manage-heading">Manage my ride</h2>
+        <p>Enter your booking code and the last name on the booking to see your ride or cancel it.</p>
+        <form id="manage-form" class="field-row" novalidate>
+          <div class="field">
+            <label for="manage-code">Booking code</label>
+            <input id="manage-code" autocomplete="off" maxlength="7" placeholder="HC-XXXX" required
+              aria-describedby="manage-code-error">
+            <p id="manage-code-error" class="field-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="manage-lastName">Last name</label>
+            <input id="manage-lastName" autocomplete="family-name" maxlength="60" required
+              aria-describedby="manage-lastName-error">
+            <p id="manage-lastName-error" class="field-error" hidden></p>
+          </div>
+          <div class="field">
+            <button type="submit">Find my ride</button>
+          </div>
+        </form>
+        <div id="manage-result" class="manage-result" tabindex="-1"></div>
+        <p id="changes-note" class="note">Rides can't be changed online. To change one, cancel it and book again, or call us on
+          <a href="tel:555-0188">555-0188</a>. Cancelling is free up to 2 hours before pick-up.</p>
+      </section>
+
+      <section id="assistant" class="assistant" aria-labelledby="assistant-heading">
+        <h2 id="assistant-heading">Ask Harborline Cabs</h2>
+        <p>Our assistant can tell you fares and what each car takes, check whether a ride can be booked,
+          fill in the booking form, and book or cancel a ride for you.</p>
+        <p class="assistant-note">Your messages and this page's data go to the LLM provider you choose in the settings below. You confirm anything that cannot be undone before it happens.</p>
+        <p id="assistant-status" role="status">Connecting the assistant… If this message stays, the assistant could not load. You can still use the page directly.</p>
+        <div id="agent-app">
+          <div data-ns-slot="header"></div>
+          <div class="assistant-panels">
+            <div data-ns-slot="chat"></div>
+            <div data-ns-slot="agents"></div>
+          </div>
+          <div data-ns-slot="settings"></div>
+        </div>
+      </section>
+
+      <section id="around" aria-labelledby="around-heading">
+        <h2 id="around-heading">Getting here and around</h2>
+        <p id="travel-note">There's no train to Marrow Point. Port Hollis airport (PHL-X) is about 50 minutes away by road,
+          so for a flight, plan to be picked up at least 3 hours before it leaves.</p>
+        <p id="not-offered">We drive you, and that's all: we don't book hotels or tours, track cabs live, promise a
+          particular driver, or share a ride between strangers.</p>
+      </section>
+      <p id="status" class="visually-hidden" role="status" aria-live="polite"></p>
+    </main>
+    <footer>
+      <p id="contact">Harborline Cabs · 3 Harbor Street, Marrow Point · <a href="tel:555-0188">555-0188</a> ·
+        <a href="mailto:rides@example.com">rides@example.com</a></p>
+      <p id="phone-hours">Dispatch answers the phone 24 hours a day. Harborline Cabs is a fictional business.</p>
+    </footer>
+  </body>
+</html>

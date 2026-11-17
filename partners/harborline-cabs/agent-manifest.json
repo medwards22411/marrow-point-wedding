@@ -1,0 +1,82 @@
+{
+  "brand": "Harborline Cabs Assistant",
+  "networks": [
+    {
+      "name": "harborline_cabs",
+      "front_man": "harborline_dispatcher",
+      "hocon": "./harborline_cabs.network.json",
+      "description": "Check fixed fares, and book or cancel a cab ride around Marrow Point or to and from Port Hollis airport.",
+      "tags": [
+        "agentified-website"
+      ],
+      "sample_queries": [
+        "What does a cab from Marrow Point to Port Hollis airport cost, and is there a night surcharge?",
+        "Is the wheelchair-accessible van free three weeks from today at 2:30 pm for a ride from Linden Falls into Marrow Point?",
+        "Put a large car for 5 passengers from Marrow Point to Linden Falls in the booking form for two weeks from today at 7:30 pm.",
+        "Book a standard car for two from 14 Quay Lane to Port Hollis airport departures two weeks from today at 6:00 am. I'm Sam Ortiz, phone 555-0123.",
+        "Can I still cancel ride HC-4TQ8 under the last name Pell for free?",
+        "Can you track my cab on a map and let me pay for it online now?"
+      ]
+    }
+  ],
+  "llm_router": {
+    "base_url": "https://api.otari.ai/api/v1",
+    "mock": false,
+    "byok_router": "https://api.otari.ai/api/v1"
+  },
+  "allowed_peers": [],
+  "peer_policy": {
+    "mode": "closed",
+    "deny_origins": [],
+    "note": "Local agents and page-local actions only."
+  },
+  "agent_mcp": {
+    "protocol": "nsdeploy-agent-mcp/v1",
+    "network": "harborline_cabs",
+    "front_man": "harborline_dispatcher",
+    "available": false,
+    "reason": "This is a static bundle; a public MCP facade requires an application host."
+  },
+  "theme": {
+    "primary": "#14284b"
+  },
+  "linking": {
+    "protocol": "nsdeploy-link/v1",
+    "exports": [
+      {
+        "network": "harborline_cabs",
+        "front_man": "harborline_dispatcher",
+        "aliases": [
+          "harborline_cabs",
+          "harborline_dispatcher"
+        ],
+        "url": "harborline_cabs"
+      }
+    ],
+    "imports": [],
+    "link_updates": {
+      "mode": "browser-local"
+    }
+  },
+  "deployment": {
+    "mode": "static",
+    "self_contained_runtime": true,
+    "browser_mock": false,
+    "direct_byok": true,
+    "direct_mcp_requires_cors": true,
+    "public_mcp_facade": false
+  },
+  "actions": {
+    "version": 1,
+    "module": "./site-actions.js",
+    "bridge": "./bridge/action-bridge.html",
+    "agentTools": [
+      "get_cab_info",
+      "quote_ride",
+      "fill_ride_form",
+      "look_up_ride",
+      "book_ride",
+      "cancel_ride"
+    ]
+  }
+}

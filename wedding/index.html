@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Nora and Theo are getting married in Marrow Point on June 12, 2027. The weekend schedule, travel, places to stay, RSVP, and a concierge that answers guests' questions.">
+    <title>Nora &amp; Theo · Marrow Point · June 12, 2027</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="site.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="topbar">
+      <a class="monogram" id="monogram" href="#top" aria-label="Home">N<span>&amp;</span>T</a>
+      <nav aria-label="Main navigation">
+        <a href="#weekend" id="nav-schedule">Schedule</a>
+        <a href="#travel">Travel</a>
+        <a href="#stay" id="nav-stay">Stay &amp; explore</a>
+        <a href="#rsvp">RSVP</a>
+        <a href="#faq">FAQ</a>
+        <a class="nav-ask" href="#assistant">Ask the concierge</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="top" class="hero" aria-labelledby="names">
+        <p class="eyebrow" id="hero-eyebrow">Together with their families</p>
+        <h1 id="names">Nora <span class="amp">&amp;</span> Theo</h1>
+        <p class="hero-date" id="hero-date">Saturday, June 12, 2027 · Marrow Point</p>
+        <p class="hero-count" id="countdown" aria-live="off"></p>
+        <div class="hero-actions">
+          <a class="button" id="rsvp-cta" href="#rsvp">RSVP</a>
+          <a class="button ghost" href="#assistant">Ask the concierge</a>
+        </div>
+        <p id="demo-note" class="note demo">Demo wedding: the couple, guests and invitation codes are made up.
+          Try invitation <strong>MP-4821</strong> with the last name <strong>Pell</strong>.
+          RSVPs stay in this page until you refresh it, and nothing is sent anywhere.</p>
+      </section>
+
+      <section id="weekend" aria-labelledby="weekend-heading">
+        <h2 id="weekend-heading">The weekend</h2>
+        <p class="lede" id="weekend-lede"></p>
+        <ol id="event-list" class="events"></ol>
+        <noscript><p>Please turn on JavaScript to see the schedule and RSVP, or email nora.and.theo@example.com.</p></noscript>
+      </section>
+
+      <section id="travel" aria-labelledby="travel-heading">
+        <h2 id="travel-heading">Getting there and around</h2>
+        <div class="two-col">
+          <div id="shuttle-block">
+            <h3>Shuttle</h3>
+            <div id="shuttle"></div>
+          </div>
+          <div>
+            <h3>Travel and parking</h3>
+            <p id="travel-note"></p>
+            <p id="parking-note"></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="stay" aria-labelledby="stay-heading">
+        <h2 id="stay-heading">Stay &amp; explore</h2>
+        <p class="lede" id="partners-note">Our favorite local places have their own sites and their own assistants.
+          Ask our concierge and, with your OK, it asks theirs for you.</p>
+        <div id="partner-list" class="partners"></div>
+      </section>
+
+      <section id="rsvp" aria-labelledby="rsvp-heading">
+        <h2 id="rsvp-heading">RSVP</h2>
+        <p class="lede" id="rsvp-deadline"></p>
+        <form id="find-form" class="find" novalidate>
+          <div class="field">
+            <label for="find-code">Invitation code</label>
+            <input id="find-code" autocomplete="off" maxlength="12" placeholder="Code" required>
+          </div>
+          <div class="field">
+            <label for="find-lastName">Last name</label>
+            <input id="find-lastName" autocomplete="family-name" maxlength="60" required>
+          </div>
+          <div class="field">
+            <button type="submit">Find my invitation</button>
+          </div>
+        </form>
+        <p id="find-error" class="error" role="alert"></p>
+        <form id="rsvp-form" class="panel" novalidate hidden>
+          <h3 id="rsvp-party"></h3>
+          <p id="rsvp-current" class="note"></p>
+          <div id="rsvp-guests"></div>
+          <fieldset id="rsvp-plusone" hidden>
+            <legend>Your guest</legend>
+            <div class="field-row">
+              <div class="field">
+                <label for="plusone-name">Guest's full name (leave blank if you're coming alone)</label>
+                <input id="plusone-name" maxlength="80" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="plusone-meal">Dinner</label>
+                <select id="plusone-meal"></select>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset id="rsvp-events">
+            <legend>Join us for more</legend>
+            <div id="rsvp-event-boxes"></div>
+          </fieldset>
+          <label class="check" id="rsvp-shuttle-row"><input id="rsvp-shuttle" type="checkbox"> Save us seats on the shuttle</label>
+          <label for="rsvp-notes">Notes for the couple (allergies, access needs, song requests)</label>
+          <textarea id="rsvp-notes" rows="3" maxlength="400"></textarea>
+          <p id="rsvp-error" class="error" role="alert"></p>
+          <button type="submit">Send RSVP</button>
+        </form>
+        <div id="rsvp-confirmation" class="confirmation" tabindex="-1" hidden></div>
+      </section>
+
+      <section id="assistant" class="assistant" aria-labelledby="assistant-heading">
+        <h2 id="assistant-heading">Ask the concierge</h2>
+        <p id="assistant-intro">It knows the schedule, the menu and the FAQ, and can fill in or send your RSVP.</p>
+        <p class="assistant-note">In Chrome, it can run on the AI built into your browser, with no key. If you add your own key below, your messages and this page's data go to the provider you choose. Before it contacts another site, it asks you. You confirm your RSVP before it is sent.</p>
+        <p id="ondevice" class="ondevice" hidden></p>
+        <p id="assistant-status" role="status">Connecting the assistant… If this message stays, the assistant could not load. You can still use the page directly.</p>
+        <div id="agent-app">
+          <div data-ns-slot="header"></div>
+          <div class="assistant-panels">
+            <div data-ns-slot="chat"></div>
+            <div data-ns-slot="agents"></div>
+          </div>
+          <div data-ns-slot="settings"></div>
+        </div>
+      </section>
+
+      <section id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Questions</h2>
+        <div id="faq-list" class="faq"></div>
+      </section>
+      <p id="status" class="visually-hidden" role="status" aria-live="polite"></p>
+    </main>
+    <footer>
+      <p id="contact">Questions the concierge can't answer? Email Nora and Theo at
+        <a href="mailto:nora.and.theo@example.com">nora.and.theo@example.com</a>.</p>
+      <p class="small">Agent-ready site: <a href="agent-manifest.json">agent-manifest.json</a> ·
+        <a id="network-link" href="marrow_point_wedding.network.json">network</a> · built on the
+        <a href="https://github.com/cognizant-ai-labs/agentic-web">Open Agentic Web</a> spec.</p>
+    </footer>
+  </body>
+</html>

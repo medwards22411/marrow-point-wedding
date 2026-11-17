@@ -1,0 +1,18 @@
+{
+  "protocol": "nsdeploy-link/v1",
+  "exports": [
+    {
+      "network": "harborline_cabs",
+      "front_man": "harborline_dispatcher",
+      "aliases": [
+        "harborline_cabs",
+        "harborline_dispatcher"
+      ],
+      "url": "harborline_cabs"
+    }
+  ],
+  "imports": [],
+  "link_updates": {
+    "mode": "browser-local"
+  }
+}

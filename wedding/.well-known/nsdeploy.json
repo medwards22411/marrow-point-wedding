@@ -1,0 +1,18 @@
+{
+  "protocol": "nsdeploy-link/v1",
+  "exports": [
+    {
+      "network": "marrow_point_wedding",
+      "front_man": "wedding_concierge",
+      "aliases": [
+        "marrow_point_wedding",
+        "wedding_concierge"
+      ],
+      "url": "marrow_point_wedding"
+    }
+  ],
+  "imports": [],
+  "link_updates": {
+    "mode": "browser-local"
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "$comment": "Everything about the event lives in this file. The page, the RSVP rules and the assistant all read it. Every person, place and code here is fictional.",
+  "slug": "marrow_point_wedding",
+  "agentName": "wedding_concierge",
+  "kind": "wedding",
+  "hosts": "Nora & Theo",
+  "hostsPlain": "Nora and Theo",
+  "theme": {
+    "primary": "#2f5d50"
+  },
+  "eyebrow": "Together with their families",
+  "date": "2027-06-12",
+  "rsvpDeadline": "2027-05-01",
+  "place": "Marrow Point",
+  "contactEmail": "nora.and.theo@example.com",
+  "scheduleHeading": "The weekend",
+  "scheduleLede": "Three days by the harbor. Come to as much as you can.",
+  "demoNote": "Demo wedding: the couple, guests and invitation codes are made up. Try invitation MP-4821 with the last name Pell. RSVPs stay in this page until you refresh it, and nothing is sent anywhere.",
+  "codePrefix": "MP",
+  "events": [
+    {
+      "id": "rehearsal",
+      "name": "Rehearsal dinner",
+      "date": "2027-06-11",
+      "start": "17:30",
+      "end": "19:30",
+      "place": "The Chart Room, upstairs at Sea Wall Hall",
+      "address": "2 Sea Wall Road, Marrow Point",
+      "details": "For the wedding party and family. Your invitation says if you are invited.",
+      "inviteOnly": true,
+      "optional": true,
+      "main": false,
+      "inviteOnlyReason": "The rehearsal dinner is for the wedding party and family"
+    },
+    {
+      "id": "welcome",
+      "name": "Welcome drinks",
+      "date": "2027-06-11",
+      "start": "20:00",
+      "end": "22:00",
+      "place": "The porch at Sea Wall Hall",
+      "address": "2 Sea Wall Road, Marrow Point",
+      "details": "Drop in any time. Drinks and small bites. Casual clothes.",
+      "inviteOnly": false,
+      "optional": true,
+      "main": false
+    },
+    {
+      "id": "ceremony",
+      "name": "Ceremony",
+      "date": "2027-06-12",
+      "start": "16:00",
+      "end": "16:30",
+      "place": "Lighthouse Lawn",
+      "address": "Lighthouse Lane, Marrow Point",
+      "details": "Outdoors on the grass. Please arrive by 3:40 pm. If it rains, the ceremony moves inside Sea Wall Hall at the same time.",
+      "inviteOnly": false,
+      "optional": false,
+      "main": true
+    },
+    {
+      "id": "reception",
+      "name": "Reception",
+      "date": "2027-06-12",
+      "start": "17:00",
+      "end": "23:00",
+      "place": "Sea Wall Hall",
+      "address": "2 Sea Wall Road, Marrow Point",
+      "details": "Cocktails on the porch, then dinner and dancing in the hall.",
+      "inviteOnly": false,
+      "optional": false,
+      "main": true
+    },
+    {
+      "id": "brunch",
+      "name": "Farewell brunch",
+      "date": "2027-06-13",
+      "start": "10:00",
+      "end": "12:00",
+      "place": "The porch at Sea Wall Hall",
+      "address": "2 Sea Wall Road, Marrow Point",
+      "details": "Come and go. Coffee, pastries and goodbyes.",
+      "inviteOnly": false,
+      "optional": true,
+      "main": false
+    }
+  ],
+  "shuttle": {
+    "stop": "Marrow Point town square, by the clock",
+    "day": "2027-06-12",
+    "outboundLabel": "To the ceremony",
+    "outbound": [
+      "15:00",
+      "15:20",
+      "15:40"
+    ],
+    "returnLabel": "Back to town",
+    "return": [
+      "21:00",
+      "22:00",
+      "23:15"
+    ],
+    "note": "The shuttle has a wheelchair lift. Lighthouse Lawn to Sea Wall Hall is a 5-minute walk along a paved path, or ride the shuttle's loop at 16:35."
+  },
+  "meals": [
+    {
+      "id": "chicken",
+      "name": "Herb-roasted chicken",
+      "note": "Gluten free",
+      "childrenOnly": false
+    },
+    {
+      "id": "salmon",
+      "name": "Seared salmon with lemon butter",
+      "note": "Gluten free",
+      "childrenOnly": false
+    },
+    {
+      "id": "risotto",
+      "name": "Wild mushroom risotto",
+      "note": "Vegan, gluten free",
+      "childrenOnly": false
+    },
+    {
+      "id": "kids",
+      "name": "Kids' plate: pasta with butter and parmesan",
+      "note": "For guests 12 and under",
+      "childrenOnly": true,
+      "short": "kids' plate",
+      "onlyFor": "guests 12 and under"
+    }
+  ],
+  "faq": [
+    {
+      "id": "dress",
+      "question": "What should I wear?",
+      "answer": "Garden formal: summer suits, dresses or jumpsuits. The ceremony is on grass, so block heels or flats are kinder than stilettos. Bring a layer: it gets cool by the water after sunset."
+    },
+    {
+      "id": "kids",
+      "question": "Can I bring my kids?",
+      "answer": "We love your kids! Children named on your invitation are very welcome. There is a kids' plate on the menu."
+    },
+    {
+      "id": "plusone",
+      "question": "Can I bring a guest?",
+      "answer": "Your invitation lists everyone invited. If it says you may bring a guest, add their name when you RSVP."
+    },
+    {
+      "id": "rsvp",
+      "question": "When do I need to RSVP?",
+      "answer": "By May 1, 2027, on this page. You can change your answer here until then."
+    },
+    {
+      "id": "parking",
+      "question": "Where do I park?",
+      "answer": "Free parking at the Sea Wall Hall lot (about 40 spaces) and on Harbor Street. Easier still: park once near the town square and take the shuttle."
+    },
+    {
+      "id": "access",
+      "question": "Is the venue accessible?",
+      "answer": "Sea Wall Hall is step-free with an accessible restroom. Lighthouse Lawn has a paved path to a level seating area. The shuttle has a wheelchair lift. Tell us anything you need in the RSVP notes."
+    },
+    {
+      "id": "rain",
+      "question": "What if it rains?",
+      "answer": "The ceremony moves inside Sea Wall Hall at the same time. We will post a note here by 10 am on the day."
+    },
+    {
+      "id": "phones",
+      "question": "Can I take photos?",
+      "answer": "We are having an unplugged ceremony: please keep phones away for those 30 minutes. Snap away at the reception."
+    },
+    {
+      "id": "gifts",
+      "question": "Do you have a registry?",
+      "answer": "Your company is the gift. If you would like to give something, there is a card box at the reception for contributions to our honeymoon."
+    },
+    {
+      "id": "airport",
+      "question": "How do I get to Marrow Point?",
+      "answer": "The nearest airport is Port Hollis (PHL-X, about 50 minutes by car). From the north, take Coast Road 9 and follow the signs for the harbor. There is no train."
+    }
+  ],
+  "partners": [
+    {
+      "id": "stay",
+      "topic": "where to stay",
+      "kindLabel": "Where to stay",
+      "name": "Tidewhistle Guesthouse",
+      "url": "https://marrow-point-guesthouse.web.app/",
+      "network": "https://marrow-point-guesthouse.web.app/tidewhistle_guesthouse",
+      "note": "A small guesthouse on the harbor, a 6-minute walk from Sea Wall Hall. We have not reserved a room block: book directly on their site."
+    },
+    {
+      "id": "tours",
+      "topic": "boat trips and harbor walks",
+      "kindLabel": "Things to do",
+      "name": "Marrow Point Harbor Tours",
+      "url": "https://marrow-point-harbor-tours.web.app/",
+      "network": "https://marrow-point-harbor-tours.web.app/marrow_point_harbor_tours",
+      "note": "Boat trips and harbor walks, a nice way to spend Friday or Sunday morning. Book directly on their site."
+    },
+    {
+      "id": "rides",
+      "topic": "taxis and airport rides",
+      "kindLabel": "Getting here",
+      "name": "Harborline Cabs",
+      "url": "https://harborline-cabs.web.app/",
+      "network": "https://harborline-cabs.web.app/harborline_cabs",
+      "note": "The local cab company: rides around town and to and from Port Hollis airport. Book directly with them."
+    }
+  ],
+  "invitations": [
+    {
+      "code": "MP-4821",
+      "lastName": "Pell",
+      "guests": [
+        {
+          "name": "Iris Pell",
+          "child": false
+        },
+        {
+          "name": "Owen Pell",
+          "child": false
+        },
+        {
+          "name": "Juniper Pell",
+          "child": true
+        }
+      ],
+      "plusOne": false,
+      "inviteOnlyEvents": []
+    },
+    {
+      "code": "MP-3307",
+      "lastName": "Okafor",
+      "guests": [
+        {
+          "name": "Ada Okafor",
+          "child": false
+        }
+      ],
+      "plusOne": true,
+      "inviteOnlyEvents": [
+        "rehearsal"
+      ]
+    },
+    {
+      "code": "MP-5160",
+      "lastName": "Lindqvist",
+      "guests": [
+        {
+          "name": "Sven Lindqvist",
+          "child": false
+        },
+        {
+          "name": "Maja Lindqvist",
+          "child": false
+        }
+      ],
+      "plusOne": false,
+      "inviteOnlyEvents": [
+        "rehearsal"
+      ]
+    },
+    {
+      "code": "MP-2294",
+      "lastName": "Reyes",
+      "guests": [
+        {
+          "name": "Tomas Reyes",
+          "child": false
+        }
+      ],
+      "plusOne": false,
+      "inviteOnlyEvents": []
+    }
+  ],
+  "sampleAnswer": {
+    "code": "MP-5160",
+    "sentOn": "2026-10-02",
+    "guests": [
+      {
+        "name": "Sven Lindqvist",
+        "attending": true,
+        "meal": "salmon"
+      },
+      {
+        "name": "Maja Lindqvist",
+        "attending": true,
+        "meal": "risotto"
+      }
+    ],
+    "plusOne": null,
+    "events": [
+      "rehearsal",
+      "welcome"
+    ],
+    "shuttle": false,
+    "notes": ""
+  },
+  "sampleQueries": [
+    "What time should I get to the ceremony, and what do I wear?",
+    "I land at Port Hollis airport on Friday afternoon. How do I get to Marrow Point without a car?",
+    "Fill in our RSVP: invitation MP-4821, last name Pell. I'm Iris, and all three of us are coming: chicken for me, salmon for Owen and the kids' plate for Juniper.",
+    "RSVP for invitation MP-2294, Reyes: Tomas can't make it, sadly.",
+    "Where can we stay nearby, and is there something fun to do on Sunday morning?",
+    "Can you book my hotel room and pay for it?"
+  ]
+}

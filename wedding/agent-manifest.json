@@ -1,0 +1,86 @@
+{
+  "brand": "Nora & Theo's Wedding Concierge",
+  "networks": [
+    {
+      "name": "marrow_point_wedding",
+      "front_man": "wedding_concierge",
+      "hocon": "./marrow_point_wedding.network.json",
+      "description": "Ask about Nora and Theo's wedding in Marrow Point, RSVP, and get help with where to stay and boat trips and harbor walks and taxis and airport rides.",
+      "tags": [
+        "agentified-website",
+        "events",
+        "wedding"
+      ],
+      "sample_queries": [
+        "What time should I get to the ceremony, and what do I wear?",
+        "I land at Port Hollis airport on Friday afternoon. How do I get to Marrow Point without a car?",
+        "Fill in our RSVP: invitation MP-4821, last name Pell. I'm Iris, and all three of us are coming: chicken for me, salmon for Owen and the kids' plate for Juniper.",
+        "RSVP for invitation MP-2294, Reyes: Tomas can't make it, sadly.",
+        "Where can we stay nearby, and is there something fun to do on Sunday morning?",
+        "Can you book my hotel room and pay for it?"
+      ]
+    }
+  ],
+  "llm_router": {
+    "base_url": "https://api.otari.ai/api/v1",
+    "mock": false,
+    "byok_router": "https://api.otari.ai/api/v1"
+  },
+  "allowed_peers": [
+    "https://marrow-point-guesthouse.web.app",
+    "https://marrow-point-harbor-tours.web.app",
+    "https://harborline-cabs.web.app"
+  ],
+  "peer_policy": {
+    "mode": "closed",
+    "deny_origins": [],
+    "note": "Calls only the partner sites in allowed_peers, after the guest agrees, plus page-local actions."
+  },
+  "agent_mcp": {
+    "protocol": "nsdeploy-agent-mcp/v1",
+    "network": "marrow_point_wedding",
+    "front_man": "wedding_concierge",
+    "available": false,
+    "reason": "This is a static bundle; a public MCP facade requires an application host."
+  },
+  "theme": {
+    "primary": "#2f5d50"
+  },
+  "linking": {
+    "protocol": "nsdeploy-link/v1",
+    "exports": [
+      {
+        "network": "marrow_point_wedding",
+        "front_man": "wedding_concierge",
+        "aliases": [
+          "marrow_point_wedding",
+          "wedding_concierge"
+        ],
+        "url": "marrow_point_wedding"
+      }
+    ],
+    "imports": [],
+    "link_updates": {
+      "mode": "browser-local"
+    }
+  },
+  "deployment": {
+    "mode": "static",
+    "self_contained_runtime": true,
+    "browser_mock": false,
+    "direct_byok": true,
+    "direct_mcp_requires_cors": true,
+    "public_mcp_facade": false
+  },
+  "actions": {
+    "version": 1,
+    "module": "./site-actions.js",
+    "bridge": "./bridge/action-bridge.html",
+    "agentTools": [
+      "get_event_info",
+      "look_up_invitation",
+      "fill_rsvp_form",
+      "send_rsvp"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "networks": [
+    {
+      "name": "marrow_point_wedding"
+    }
+  ],
+  "actions": {
+    "version": 1
+  }
+}
