@@ -109,7 +109,7 @@ export class AssistantMount {
     const state = await OnDeviceAI.availability();
     if (state === "available") {
       OnDeviceAI.install();
-      OnDeviceAI.setPartnerHints(AssistantMount.partnerHints());
+      OnDeviceAI.setPartnerHints(AssistantMount.partnerHints(), AssistantMount.partnerLabels());
       return { router: OnDeviceAI.ROUTER, model: OnDeviceAI.MODEL, byokKey: OnDeviceAI.KEY };
     }
     if (state === "downloadable" || state === "downloading") {
@@ -138,6 +138,19 @@ export class AssistantMount {
       hints[tool] = partner.keywords || String(partner.topic || "").split(/\W+/).filter((word) => word.length > 3);
     }
     return hints;
+  }
+
+  /**
+   * Each partner's name by its tool name, so answers say "Harborline Cabs".
+   *
+   * :return: Partner tool name to the partner's name.
+   */
+  static partnerLabels() {
+    const labels = {};
+    for (const partner of EventData.PARTNERS) {
+      labels[new URL(partner.network).pathname.replace(/^\/+|\/+$/g, "").replace(/[^A-Za-z0-9_]+/g, "_")] = partner.name;
+    }
+    return labels;
   }
 
   /**

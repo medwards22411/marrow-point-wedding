@@ -42,12 +42,16 @@ export class OnDeviceAI {
    */
   static partnerHints = new Map();
 
+  /** Partner tool name to the partner's name, for answers. */
+  static partnerLabels = new Map();
+
   /**
    * Offer each partner only for messages that mention one of its words.
    *
    * :param hints: tool name to a list of words or phrases
    */
-  static setPartnerHints(hints) {
+  static setPartnerHints(hints, labels = {}) {
+    OnDeviceAI.partnerLabels = new Map(Object.entries(labels));
     OnDeviceAI.partnerHints = new Map();
     for (const [name, words] of Object.entries(hints)) {
       const escaped = words.filter(Boolean).map((word) => word.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
@@ -211,6 +215,11 @@ export class OnDeviceAI {
     if (!reply) {
       let text = OnDeviceAI.tidy(await OnDeviceAI.step(base, `${transcript}\n\nWrite your reply to the visitor now: say what the tool results show was done or found, in two or three plain sentences. Never mention tools or "the tool": name the site or partner instead. Give only links that a tool result contains, written out in full.`, null, 1500, signal));
       text = OnDeviceAI.keepKnownLinks(text, transcript);
+      // Partner tool names read badly: "the tidewhistle_guesthouse network" becomes
+      // "Tidewhistle Guesthouse".
+      for (const [name, label] of OnDeviceAI.partnerLabels) {
+        text = text.replace(new RegExp(`(?:the )?\\b${name}\\b(?: network)?`, "gi"), label);
+      }
       if (!siteTools) {
         // Answering for another site with no tool results: any link would be made up.
         text = text.replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/\s*\(?https?:\/\/\S+\)?/g, "");
