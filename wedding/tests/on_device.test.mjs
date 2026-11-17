@@ -259,6 +259,26 @@ test("a tool with no arguments is called without an arguments step", async () =>
   assert.equal(ScriptedModel.log.length, 1, "It ran an arguments step for a tool with no arguments.");
 });
 
+test("a partner is offered only when the visitor's message fits it", async () => {
+  OnDeviceAI.setPartnerHints({ harborline_cabs: ["cab", "taxi", "airport"] });
+  try {
+    const afterRead = (question) => [
+      SYSTEM,
+      { role: "user", content: question },
+      { role: "assistant", content: null, tool_calls: [{ id: "r", type: "function", function: { name: "website_look_up_invitation", arguments: "{}" } }] },
+      { role: "tool", tool_call_id: "r", content: '{"ok":true}' },
+    ];
+    ScriptedModel.reset(['{"next":"answer"}', "At 3:40 pm, in garden formal."]);
+    await chat(afterRead("What time should I arrive?"));
+    assert.deepEqual(ScriptedModel.log[0].schema.properties.next.enum, ["website_look_up_invitation", "answer"]);
+    ScriptedModel.reset(['{"next":"answer"}', "Harborline Cabs can take you."]);
+    await chat(afterRead("How do I get from the airport?"));
+    assert.deepEqual(ScriptedModel.log[0].schema.properties.next.enum, ["website_look_up_invitation", "harborline_cabs", "answer"]);
+  } finally {
+    OnDeviceAI.setPartnerHints({});
+  }
+});
+
 test("stray markup after an answer is trimmed", () => {
   assert.equal(OnDeviceAI.tidy("All set.\\n- Iris: chicken</div></body></html> />}"), "All set.\n- Iris: chicken");
   assert.equal(OnDeviceAI.tidy("  Plain answer.  "), "Plain answer.");

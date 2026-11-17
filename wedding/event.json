@@ -190,7 +190,20 @@
       "name": "Tidewhistle Guesthouse",
       "url": "https://marrow-point-guesthouse.web.app/",
       "network": "https://marrow-point-guesthouse.web.app/tidewhistle_guesthouse",
-      "note": "A small guesthouse on the harbor, a 6-minute walk from Sea Wall Hall. We have not reserved a room block: book directly on their site."
+      "note": "A small guesthouse on the harbor, a 6-minute walk from Sea Wall Hall. We have not reserved a room block: book directly on their site.",
+      "keywords": [
+        "stay",
+        "room",
+        "rooms",
+        "hotel",
+        "lodging",
+        "sleep",
+        "guesthouse",
+        "night",
+        "nights",
+        "accommodation",
+        "place to stay"
+      ]
     },
     {
       "id": "tours",
@@ -199,7 +212,22 @@
       "name": "Marrow Point Harbor Tours",
       "url": "https://marrow-point-harbor-tours.web.app/",
       "network": "https://marrow-point-harbor-tours.web.app/marrow_point_harbor_tours",
-      "note": "Boat trips and harbor walks, a nice way to spend Friday or Sunday morning. Book directly on their site."
+      "note": "Boat trips and harbor walks, a nice way to spend Friday or Sunday morning. Book directly on their site.",
+      "keywords": [
+        "boat",
+        "tour",
+        "tours",
+        "trip",
+        "trips",
+        "walk",
+        "walks",
+        "seal",
+        "seals",
+        "sightseeing",
+        "things to do",
+        "something to do",
+        "fun"
+      ]
     },
     {
       "id": "rides",
@@ -208,7 +236,23 @@
       "name": "Harborline Cabs",
       "url": "https://harborline-cabs.web.app/",
       "network": "https://harborline-cabs.web.app/harborline_cabs",
-      "note": "The local cab company: rides around town and to and from Port Hollis airport. Book directly with them."
+      "note": "The local cab company: rides around town and to and from Port Hollis airport. Book directly with them.",
+      "keywords": [
+        "cab",
+        "cabs",
+        "taxi",
+        "taxis",
+        "ride",
+        "rides",
+        "airport",
+        "car",
+        "drive",
+        "pickup",
+        "pick up",
+        "land",
+        "get to marrow point",
+        "get there"
+      ]
     }
   ],
   "invitations": [

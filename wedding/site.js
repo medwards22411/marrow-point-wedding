@@ -109,6 +109,7 @@ export class AssistantMount {
     const state = await OnDeviceAI.availability();
     if (state === "available") {
       OnDeviceAI.install();
+      OnDeviceAI.setPartnerHints(AssistantMount.partnerHints());
       return { router: OnDeviceAI.ROUTER, model: OnDeviceAI.MODEL, byokKey: OnDeviceAI.KEY };
     }
     if (state === "downloadable" || state === "downloading") {
@@ -122,6 +123,21 @@ export class AssistantMount {
       bar.hidden = false;
     }
     return {};
+  }
+
+  /**
+   * The words that make each partner relevant, from event.json: its keywords, or else
+   * the words of its topic. The on-device model is offered a partner only then.
+   *
+   * :return: Partner tool name to a list of words.
+   */
+  static partnerHints() {
+    const hints = {};
+    for (const partner of EventData.PARTNERS) {
+      const tool = new URL(partner.network).pathname.replace(/^\/+|\/+$/g, "").replace(/[^A-Za-z0-9_]+/g, "_");
+      hints[tool] = partner.keywords || String(partner.topic || "").split(/\W+/).filter((word) => word.length > 3);
+    }
+    return hints;
   }
 
   /**

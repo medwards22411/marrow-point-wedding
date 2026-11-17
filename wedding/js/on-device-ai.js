@@ -36,6 +36,25 @@ export class OnDeviceAI {
   /** One prepared session per system prompt, cloned for each request. */
   static baseSessions = new Map();
 
+  /**
+   * Partner tool name to the words that make it relevant, as a regular expression. The
+   * page sets it with setPartnerHints(). A partner with no entry is always offered.
+   */
+  static partnerHints = new Map();
+
+  /**
+   * Offer each partner only for messages that mention one of its words.
+   *
+   * :param hints: tool name to a list of words or phrases
+   */
+  static setPartnerHints(hints) {
+    OnDeviceAI.partnerHints = new Map();
+    for (const [name, words] of Object.entries(hints)) {
+      const escaped = words.filter(Boolean).map((word) => word.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+      if (escaped.length) OnDeviceAI.partnerHints.set(name, new RegExp(`\\b(?:${escaped.join("|")})`));
+    }
+  }
+
   /** The model's latest replies, newest last. */
   static recent = [];
 
@@ -162,7 +181,12 @@ export class OnDeviceAI {
       : [];
     // A new visitor message starts with the site's own tools: the page's data says which
     // partner fits, and gives the link to pass on. Partners come after that read.
-    const firstStep = mustCall ? allowed.filter((name) => name.startsWith("website_")) : allowed;
+    // A partner is offered only when the visitor's message fits it (partnerHints, set by
+    // the page from event.json). A small model otherwise forwards any question.
+    const asked = OnDeviceAI.text((messages[turnStart] || {}).content).toLowerCase();
+    const fits = (name) => !OnDeviceAI.partnerHints.has(name) || OnDeviceAI.partnerHints.get(name).test(asked);
+    const offered = allowed.filter((name) => name.startsWith("website_") || fits(name));
+    const firstStep = mustCall ? offered.filter((name) => name.startsWith("website_")) : offered;
     const names = results >= OnDeviceAI.MAX_TOOL_RESULTS ? [] : firstStep;
     const choices = mustCall && names.length ? names : names.length ? [...names, "answer"] : [];
     let reply = null;

@@ -46,7 +46,7 @@ Two examples:
 | `shuttle` | Stop, times and a note, or `null`. |
 | `meals` | Dinner choices. `childrenOnly` meals are offered only to guests marked `child`. |
 | `faq` | Questions and answers. The concierge reads them; ids `airport` and `parking` also fill the travel section. |
-| `partners` | Local businesses with agentic sites: `name`, `url` (their page), `network` (their agent network URL), `topic` (what to ask them about), `note`. |
+| `partners` | Local businesses with agentic sites: `name`, `url` (their page), `network` (their agent network URL), `topic` (what to ask them about), `note`, and optional `keywords` (words in a guest's question that make this partner relevant; used by the no-key mode, defaults to the topic's words). |
 | `invitations` | Code, last name, guests (with `child`), `plusOne`, `inviteOnlyEvents`. |
 | `sampleQueries` | Four to six questions for the chat, one the site cannot do. |
 | `theme.primary` | The main color. |
