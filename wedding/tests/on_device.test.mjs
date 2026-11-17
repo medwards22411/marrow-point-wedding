@@ -147,7 +147,8 @@ test("a new visitor message must start with a tool, and the call reaches the run
   assert.deepEqual(JSON.parse(result.toolCalls[0].function.arguments), { code: "MP-4821", lastName: "Pell" });
   // Step 1 offered only tools: "answer" is left out after a visitor message.
   const first = ScriptedModel.log[0].schema;
-  assert.deepEqual(first.properties.next.enum, ["website_look_up_invitation", "harborline_cabs"]);
+  // The first step offers only the site's own tools: no "answer", and no partner yet.
+  assert.deepEqual(first.properties.next.enum, ["website_look_up_invitation"]);
   // render_cruse is too much for a small model, so it is never offered.
   assert.ok(!JSON.stringify(ScriptedModel.log).includes("render_cruse"));
   // Step 2 is constrained to that tool's arguments, without descriptions, with caps.

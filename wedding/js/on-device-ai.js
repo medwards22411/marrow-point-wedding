@@ -160,7 +160,10 @@ export class OnDeviceAI {
     const allowed = siteTools
       ? tools.map((tool) => OnDeviceAI.toolOf(tool).name).filter((name) => name.startsWith("website_") || !askedPartner)
       : [];
-    const names = results >= OnDeviceAI.MAX_TOOL_RESULTS ? [] : allowed;
+    // A new visitor message starts with the site's own tools: the page's data says which
+    // partner fits, and gives the link to pass on. Partners come after that read.
+    const firstStep = mustCall ? allowed.filter((name) => name.startsWith("website_")) : allowed;
+    const names = results >= OnDeviceAI.MAX_TOOL_RESULTS ? [] : firstStep;
     const choices = mustCall && names.length ? names : names.length ? [...names, "answer"] : [];
     let reply = null;
     if (choices.length) {
