@@ -100,7 +100,7 @@ gemini-nano, open-agentic-web, nsdeploy
 - Live site: https://marrow-point-wedding.web.app/
 - Network: https://marrow-point-wedding.web.app/marrow_point_wedding
 - Code: https://github.com/medwards22411/marrow-point-wedding
-- Video: (YouTube link)
+- Video: https://youtu.be/kdLZXA0mtRU
 
 **Screenshots to upload:** the hero, the schedule, the concierge answering, the RSVP
 confirmation dialog, the partner consent card, the cab site, the birthday kit example.
